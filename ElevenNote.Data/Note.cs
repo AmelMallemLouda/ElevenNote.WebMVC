@@ -23,7 +23,7 @@ namespace ElevenNote.Data
 
         [Required]
 
-        public DateTimeOffset CreatedUtc { get; set; }
+        public DateTimeOffset CreatedUtc { get; set; }//DateTimeOffset is a value type, they can't be null
 
         public DateTimeOffset? ModifiedUtc { get; set; }
     }
