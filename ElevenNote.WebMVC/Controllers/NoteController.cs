@@ -91,6 +91,8 @@ namespace ElevenNote.WebMVC.Controllers
             ModelState.AddModelError("", "Your note could not be updated.");
             return View();
         }
+
+
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {
