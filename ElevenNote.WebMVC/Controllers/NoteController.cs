@@ -20,7 +20,7 @@ namespace ElevenNote.WebMVC.Controllers
             var service = new NoteService(userId);
             var model = service.GetNotes();
            
-            return View(model);//That View() method will return a view that corresponds to the NoteController
+            return View(model);//That View() method will return a view that corresponds to the NoteController. view() displays all the notes for the current user.
         }
 
         //GET
@@ -28,21 +28,33 @@ namespace ElevenNote.WebMVC.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
+     [ValidateAntiForgeryToken]
         public ActionResult Create(NoteCreate model)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            var service = CreateNoteService();
+
+            if (service.CreateNote(model))
             {
-                return View(model);
-            }
-            
-            var userId = Guid.Parse(User.Identity.GetUserId());//grab the current userId
-            var service = new NoteService(userId); //call NoteService to create note.
+                //TempData removes information after it's accessed
+                TempData["SaveResult"] = "Your note was created."; //?
 
-            service.CreateNote(model);
+                return RedirectToAction("Index");
+            };
+            ModelState.AddModelError("", "Note could not be created.");//?
 
-            return RedirectToAction("Index");//returns the user back to the index view.
+            return View(model);
+        }
+
+        private NoteService CreateNoteService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
+            var service = new NoteService(userId);
+            return service;
         }
     }
 }
