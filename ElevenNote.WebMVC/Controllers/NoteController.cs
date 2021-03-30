@@ -14,7 +14,7 @@ namespace ElevenNote.WebMVC.Controllers
     public class NoteController : Controller
     {
         // GET: Note
-        public ActionResult Index()
+        public ActionResult Index()//The ActionResult is a return type.it allows us to return a View() method
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new NoteService(userId);
@@ -24,16 +24,16 @@ namespace ElevenNote.WebMVC.Controllers
         }
 
         //GET
-        public ActionResult Create()
+        public ActionResult Create()//GET method that gives users a View in which they can fill in the Title and Content for a new note.
         {
             return View();
         }
 
         [HttpPost]
-     [ValidateAntiForgeryToken]
-        public ActionResult Create(NoteCreate model)
+     [ValidateAntiForgeryToken]//The basic purpose of ValidateAntiForgeryToken attribute is to prevent cross-site request forgery attacks
+        public ActionResult Create(NoteCreate model)//[HttpPost] method  will push the data inputted in the view through our service and into the db.
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(model);//makes sure the model is valid
 
             var service = CreateNoteService();
 
@@ -42,7 +42,7 @@ namespace ElevenNote.WebMVC.Controllers
                 //TempData removes information after it's accessed
                 TempData["SaveResult"] = "Your note was created."; //?
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); //returns the user back to the index view
             };
             ModelState.AddModelError("", "Note could not be created.");//?
 
@@ -51,7 +51,7 @@ namespace ElevenNote.WebMVC.Controllers
 
         private NoteService CreateNoteService()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId());
+            var userId = Guid.Parse(User.Identity.GetUserId());// grabs the current userId
 
             var service = new NoteService(userId);
             return service;

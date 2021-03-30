@@ -25,7 +25,7 @@ namespace ElevenNote.Services
             var entity =
                 new Note()
                 {
-                    OwnerId = _userId,
+                    OwnerId = _userId,//We want the user who creates the note to be the user who is logged in
                     Title = model.Title,
                     Content = model.Content,
                     CreatedUtc = DateTimeOffset.Now
