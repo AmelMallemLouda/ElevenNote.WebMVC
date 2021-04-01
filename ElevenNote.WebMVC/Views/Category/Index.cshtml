@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ElevenNote.WebMVC.Models.NoteListItem>
+﻿@model IEnumerable<ElevenNote.Models.CategoryModels.CategoryListItem>
 
 @{
     ViewBag.Title = "Index";
@@ -12,16 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NoteId)
+            @Html.DisplayNameFor(model => model.CategoryID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedUtc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            @Html.DisplayNameFor(model => model.NumOfNote)
         </th>
         <th></th>
     </tr>
@@ -29,16 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.NoteId)
+            @Html.DisplayFor(modelItem => item.CategoryID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
+            @Html.DisplayFor(modelItem => item.NumOfNote)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

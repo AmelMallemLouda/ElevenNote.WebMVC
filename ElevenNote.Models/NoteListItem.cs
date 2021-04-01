@@ -13,5 +13,6 @@ namespace ElevenNote.WebMVC.Models
 
         [Display(Name = "Created")]
         public DateTimeOffset CreatedUtc { get; set; }
+        public string CategoryName { get; set; }
     }
 }

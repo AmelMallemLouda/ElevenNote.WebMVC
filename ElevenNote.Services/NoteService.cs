@@ -28,7 +28,8 @@ namespace ElevenNote.Services
                     OwnerId = _userId,//We want the user who creates the note to be the user who is logged in
                     Title = model.Title,
                     Content = model.Content,
-                    CreatedUtc = DateTimeOffset.Now
+                    CreatedUtc = DateTimeOffset.Now,
+                    CategoryId = model.CategoryID
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -53,7 +54,8 @@ namespace ElevenNote.Services
                                 {
                                     NoteId = e.NoteId,
                                     Title = e.Title,
-                                    CreatedUtc = e.CreatedUtc
+                                    CreatedUtc = e.CreatedUtc,
+                                    CategoryName = e.Category.Name
                                 }
                         );
 
@@ -75,7 +77,9 @@ namespace ElevenNote.Services
                         Title = entity.Title,
                         Content = entity.Content,
                         CreatedUtc = entity.CreatedUtc,
-                        ModifiedUtc = entity.ModifiedUtc
+                        ModifiedUtc = entity.ModifiedUtc,
+                        CategoryID = entity.CategoryId,
+                        CategoryName = entity.Category.Name
                     };
             }
         }
@@ -90,8 +94,9 @@ namespace ElevenNote.Services
               entity.Title = model.Title;
               entity.Content = model.Content;
               entity.ModifiedUtc = DateTimeOffset.UtcNow;
+                entity.CategoryId = model.CategoryID;
 
-              return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() == 1;
             }
         }
         public bool DeleteNote(int noteId)
